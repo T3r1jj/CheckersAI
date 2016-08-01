@@ -13,21 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model.checker;
+package io.github.t3r1jj.checkersai.ui;
 
-public class EmptySpace extends NoChecker {
+import io.github.t3r1jj.checkersai.model.Board;
+import io.github.t3r1jj.checkersai.model.Move;
+import io.github.t3r1jj.checkersai.model.Turn;
+import java.util.List;
 
-    private static final EmptySpace INSTANCE = new EmptySpace();
+public interface UI {
 
-    protected EmptySpace() {
-    }
+    Move getNextMove();
 
-    public static EmptySpace getInstance() {
-        return INSTANCE;
-    }
+    void printTurn(Turn turn);
 
-    @Override
-    public String toString() {
-        return (char) 27 + "[37;47m" + "  " + (char) 27 + "[39;49m";
-    }
+    void printIllegalMove(Turn turn);
+
+    void printCheckers(Board board);
+
+    void printDataInfo(String string);
+
+    void printEnd(String message, Turn turn);
+
+    void printMoves(List<Move> list);
+
+    char getGameplay();
+
+    int getRedDepth();
+
+    int getWhiteDepth();
+
+    boolean isComplex();
 }

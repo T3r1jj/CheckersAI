@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model;
+package io.github.t3r1jj.checkersai.model;
 
-import checkers.model.ai.Statistics;
-import checkers.ui.UI;
+import io.github.t3r1jj.checkersai.model.ai.Statistics;
+import io.github.t3r1jj.checkersai.ui.UI;
 import java.awt.Point;
 import java.util.List;
 

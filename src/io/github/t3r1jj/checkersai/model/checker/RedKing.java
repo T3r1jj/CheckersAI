@@ -13,38 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model.checker;
+package io.github.t3r1jj.checkersai.model.checker;
 
-import checkers.model.Board;
-import checkers.model.Move;
-import checkers.model.Turn;
-import checkers.model.ai.EvaluatorConfig;
+import io.github.t3r1jj.checkersai.model.Board;
+import io.github.t3r1jj.checkersai.model.Move;
+import io.github.t3r1jj.checkersai.model.Turn;
+import io.github.t3r1jj.checkersai.model.ai.EvaluatorConfig;
 import java.awt.Image;
 import java.awt.Point;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ImageIcon;
 
-public class WhitePawn extends Checker {
+public class RedKing extends RedPawn {
 
-    protected static final Turn SIDE = Turn.WHITE;
     private static ImageIcon image;
 
     public static void loadImage(int width, int height) {
-        image = new ImageIcon(new ImageIcon(WhitePawn.class.getResource("/images/whitePawn.png")).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        image = new ImageIcon(new ImageIcon(RedKing.class.getResource("/io/github/t3r1jj/checkersai/images/redKing.png")).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    public WhitePawn(Point point) {
+    public RedKing(Point point) {
         super(point);
-    }
-
-    public WhiteKing promote() {
-        return new WhiteKing(this.coordinates);
     }
 
     @Override
     public List<Move> generateForcedMoves(Board board) {
-        List<Move> moves = new LinkedList<Move>();
+        List<Move> moves = super.generateForcedMoves(board);
         Move move = upRightCapture(board);
         if (move != null) {
             moves.add(move);
@@ -58,12 +52,12 @@ public class WhitePawn extends Checker {
 
     @Override
     public List<Move> generateNonForcedMoves(Board board) {
-        List<Move> moves = new LinkedList<Move>();
-        Move move = upRight(board);
+        List<Move> moves = super.generateNonForcedMoves(board);
+        Move move = upLeft(board);
         if (move != null) {
             moves.add(move);
         }
-        move = upLeft(board);
+        move = upRight(board);
         if (move != null) {
             moves.add(move);
         }
@@ -96,7 +90,6 @@ public class WhitePawn extends Checker {
                 && !board.checkers[this.coordinates.y - 2][this.coordinates.x - 2].isCollidable()) {
             upLeftCapture = new Move(new Point(coordinates), new Point(this.coordinates.x - 2, this.coordinates.y - 2));
         }
-
         return upLeftCapture;
     }
 
@@ -113,7 +106,7 @@ public class WhitePawn extends Checker {
 
     @Override
     public String toString() {
-        return (char) 27 + "[1;37;40m" + "W " + (char) 27 + "[0;39;49m";
+        return (char) 27 + "[31;40m" + "K " + (char) 27 + "[0;39;49m";
     }
 
     @Override
@@ -122,36 +115,18 @@ public class WhitePawn extends Checker {
     }
 
     @Override
-    public boolean isEnemy(Checker checker) {
-        return checker.getSide() == Turn.RED;
-    }
-
-    @Override
-    public Turn getSide() {
-        return SIDE;
-    }
-
-    @Override
-    public boolean isCollidable() {
-        return true;
-    }
-
-    @Override
     public Checker clone() {
-        return new WhitePawn(new Point(coordinates));
+        return new RedKing(new Point(coordinates));
     }
 
     @Override
     public Checker tryPromoting(Board board) {
-        if (coordinates.y == 0) {
-            return new WhiteKing(new Point(coordinates));
-        }
         return this;
     }
 
     @Override
     public int getValue(EvaluatorConfig config, Turn turn) {
-        return (turn == SIDE) ? config.getWhitePawn() : -config.getWhitePawn();
+        return (turn == RedPawn.SIDE) ? config.getRedKing() : -config.getRedKing();
     }
 
 }

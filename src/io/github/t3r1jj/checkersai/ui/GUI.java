@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.ui;
+package io.github.t3r1jj.checkersai.ui;
 
-import checkers.model.ai.EvaluatorConfig;
-import checkers.model.Board;
-import checkers.model.Game;
-import checkers.model.Move;
-import checkers.model.Turn;
-import checkers.model.ai.Statistics;
-import checkers.model.checker.RedPawn;
-import checkers.model.checker.RedKing;
-import checkers.model.checker.WhitePawn;
-import checkers.model.checker.WhiteKing;
+import io.github.t3r1jj.checkersai.model.ai.EvaluatorConfig;
+import io.github.t3r1jj.checkersai.model.Board;
+import io.github.t3r1jj.checkersai.model.Game;
+import io.github.t3r1jj.checkersai.model.Move;
+import io.github.t3r1jj.checkersai.model.Turn;
+import io.github.t3r1jj.checkersai.model.ai.Statistics;
+import io.github.t3r1jj.checkersai.model.checker.RedKing;
+import io.github.t3r1jj.checkersai.model.checker.RedPawn;
+import io.github.t3r1jj.checkersai.model.checker.WhiteKing;
+import io.github.t3r1jj.checkersai.model.checker.WhitePawn;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -35,7 +35,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -77,7 +76,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 public class GUI extends JFrame implements UI {
-    
+
     private static JPanel checkersBoard;
     private static Game game;
     private static Border border;
@@ -98,38 +97,38 @@ public class GUI extends JFrame implements UI {
     private static final Color BOARD_FG_COLOR = Color.BLACK;
     private static final Color BOARD_TILE_COLOR = new Color(70, 55, 40);
     private static final Color BOARD_COLOR = new Color(130, 110, 80);
-    private static final Image ICON = new ImageIcon(GUI.class.getResource("/images/icon.png")).getImage();
-    
+    private static final Image ICON = new ImageIcon(GUI.class.getResource("/io/github/t3r1jj/checkersai/images/icon.png")).getImage();
+
     public static Point getSource() {
         return source;
     }
-    
+
     public static Point getDestination() {
         return destination;
     }
-    
+
     GUI() {
         super("CheckersAI - English draughts");
         setIconImage(ICON);
         initializeGui();
         this.add(GUI);
     }
-    
+
     public final void initializeGui() {
         getImages();
         GUI.setBorder(new EmptyBorder(5, 5, 5, 5));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         GUI.add(tools, BorderLayout.PAGE_START);
-        
+
         Action newGameAction = new AbstractAction("New") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GameOption(GUI.this);
             }
         };
-        
-        Action stepAction = new AbstractAction("Pause") {
+
+        Action stepAction = new AbstractAction("Step") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!game.isStopIntervals()) {
@@ -138,7 +137,7 @@ public class GUI extends JFrame implements UI {
                 game.nextStep();
             }
         };
-        
+
         Action continueAction = new AbstractAction("Continue") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,7 +147,7 @@ public class GUI extends JFrame implements UI {
                 game.nextStep();
             }
         };
-        
+
         Action resignAction = new AbstractAction("Resign / Force stop") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -164,18 +163,18 @@ public class GUI extends JFrame implements UI {
                 }
             }
         };
-        
+
         Action helpAction = new AbstractAction("Help") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(GUI, "1. Grading options can be managed using Save/Load buttons. Gameplay option is also saved.\n"
                         + "2. Game can be run in text user interface by passing an -ui=tui argument in a command line."
-                        + "\n\tGrading values will be loaded from Checkers.properties file in the same directory or default ones will be loaded if the file does not exist.\n"
+                        + "\n\tGrading values will be loaded from CheckersAI.properties file in the same directory or default ones will be loaded if the file does not exist.\n"
                         + "3. " + CONFIG.getFunctionConfig().substring(1) + ".\n4. The AI is not complex as it is based only on alpha-beta alghoritm and grading (no base/break moves sets).",
                         "Help", JOptionPane.INFORMATION_MESSAGE);
             }
         };
-        
+
         Action aboutAction = new AbstractAction("About") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,7 +182,7 @@ public class GUI extends JFrame implements UI {
                         + "strategies\nAlpha-beta alghoritm with heuristics\n31.05.2015", "Author", JOptionPane.INFORMATION_MESSAGE);
             }
         };
-        
+
         tools.add(newGameAction);
         tools.addSeparator();
         tools.add(stepAction);
@@ -197,7 +196,7 @@ public class GUI extends JFrame implements UI {
         tools.addSeparator();
         tools.add(aboutAction);
         GUI.add(new JLabel(""), BorderLayout.LINE_START);
-        
+
         checkersBoard = new JPanel(new GridLayout(0, 9)) {
             @Override
             public final Dimension getPreferredSize() {
@@ -224,7 +223,7 @@ public class GUI extends JFrame implements UI {
                 new EmptyBorder(8, 8, 8, 8),
                 new LineBorder(Color.BLACK)
         ));
-        
+
         checkersBoard.setBackground(BOARD_TILE_COLOR);
         JPanel boardConstrain = new JPanel(new GridBagLayout());
         boardConstrain.setBackground(BOARD_COLOR);
@@ -246,7 +245,7 @@ public class GUI extends JFrame implements UI {
                 } else {
                     b.setBackground(BOARD_FG_COLOR);
                 }
-                
+
                 BOARD_SQUARES[i][j] = b;
                 if ((i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0)) {
                     BOARD_SQUARES[i][j].setName(Integer.toString(j + i * 8));
@@ -263,11 +262,11 @@ public class GUI extends JFrame implements UI {
                                 BOARD_SQUARES[move.getDestination().y][move.getDestination().x].setBorder(border);
                             }
                         }
-                        
+
                         @Override
                         public void keyReleased(KeyEvent e) {
                         }
-                        
+
                         @Override
                         public void keyTyped(KeyEvent e) {
                         }
@@ -275,7 +274,7 @@ public class GUI extends JFrame implements UI {
                 }
             }
         }
-        
+
         checkersBoard.add(new JLabel(""));
         for (int j = 0; j < 8; j++) {
             checkersBoard.add(withWhiteText(new JLabel(COLS.substring(j, j + 1), SwingConstants.CENTER)));
@@ -298,30 +297,30 @@ public class GUI extends JFrame implements UI {
         textArea.setEditable(false);
         JScrollPane scrollableTextArea = new JScrollPane(textArea);
         int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED;
-        
+
         scrollableTextArea.setHorizontalScrollBarPolicy(horizontalPolicy);
         DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-        
+
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        
+
         GUI.add(scrollableTextArea, BorderLayout.EAST);
         border = BOARD_SQUARES[0][1].getBorder();
-        
+
     }
-    
+
     public final JLabel withWhiteText(JLabel label) {
         label.setForeground(Color.WHITE);
         label.setFont(label.getFont().deriveFont(Font.BOLD, 14f));
         return label;
     }
-    
+
     private void getImages() {
         RedPawn.loadImage(BOARD_ELEMENT_SIZE, BOARD_ELEMENT_SIZE);
         WhitePawn.loadImage(BOARD_ELEMENT_SIZE, BOARD_ELEMENT_SIZE);
         RedKing.loadImage(BOARD_ELEMENT_SIZE, BOARD_ELEMENT_SIZE);
         WhiteKing.loadImage(BOARD_ELEMENT_SIZE, BOARD_ELEMENT_SIZE);
     }
-    
+
     @Override
     public final void printCheckers(Board board) {
         for (int i = 0; i < board.getHeight(); i++) {
@@ -335,30 +334,30 @@ public class GUI extends JFrame implements UI {
             }
         }
     }
-    
+
     @Override
     public boolean isComplex() {
         return true;
     }
-    
+
     @Override
     public char getGameplay() {
         return CONFIG.getGameplay();
     }
-    
+
     @Override
     public int getRedDepth() {
         return CONFIG.getRedDepth();
     }
-    
+
     @Override
     public int getWhiteDepth() {
         return CONFIG.getWhiteDepth();
-        
+
     }
-    
+
     private class ClickAction implements ActionListener {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             Integer value = Integer.parseInt(((JButton) e.getSource()).getName());
@@ -366,7 +365,7 @@ public class GUI extends JFrame implements UI {
             int x = value % 8;
             clickedButton(x, y);
         }
-        
+
         private void clickedButton(int x, int y) {
             if (BOARD_SQUARES[y][x].getIcon() != null) {
                 if (source == null) {
@@ -402,7 +401,7 @@ public class GUI extends JFrame implements UI {
             }
         }
     }
-    
+
     @Override
     public Move getNextMove() {
         while (source == null || destination == null) {
@@ -421,7 +420,7 @@ public class GUI extends JFrame implements UI {
         destination = null;
         return move;
     }
-    
+
     @Override
     public void printEnd(String message, Turn turn) {
         if (message == null) {
@@ -458,17 +457,17 @@ public class GUI extends JFrame implements UI {
                 break;
         }
     }
-    
+
     @Override
     public void printIllegalMove(Turn turn) {
         JOptionPane.showMessageDialog(GUI, "Illegal move for " + turn + " player!", "Error - Invalid move", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     @Override
     public void printDataInfo(String message) {
         textArea.append(message);
     }
-    
+
     @Override
     public void printTurn(Turn turn) {
         textArea.append("------------------------------------------------------"
@@ -477,7 +476,7 @@ public class GUI extends JFrame implements UI {
         textArea.append("------------------------------------------------------"
                 + "----------------------------\n");
     }
-    
+
     @Override
     public void printMoves(List<Move> moveSeq) {
         for (Move m : moveSeq) {
@@ -487,16 +486,16 @@ public class GUI extends JFrame implements UI {
         }
         textArea.append("\n");
     }
-    
+
     private static Component center(JComponent component) {
         Box box = Box.createHorizontalBox();
         box.add(Box.createHorizontalGlue());
         box.add(component);
         box.add(Box.createHorizontalGlue());
         return box;
-        
+
     }
-    
+
     private static class GameOption extends JDialog {
 
         GUI gui;
@@ -716,21 +715,21 @@ public class GUI extends JFrame implements UI {
             }
         }
     }
-    
+
     private static class PlayGame extends Thread {
-        
+
         @Override
         public void run() {
             game.PlayGame();
         }
     }
-    
+
     private static class FileChooser extends JPanel implements ActionListener {
-        
+
         JButton openButton, saveButton;
         JFileChooser fc;
         GUI gui;
-        
+
         public FileChooser(GUI gui) {
             super(new BorderLayout());
             this.gui = gui;
@@ -743,7 +742,7 @@ public class GUI extends JFrame implements UI {
             add(saveButton, BorderLayout.EAST);
             setOpaque(false);
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == openButton) {
@@ -764,7 +763,7 @@ public class GUI extends JFrame implements UI {
                         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
+
             } else if (e.getSource() == saveButton) {
                 int returnVal = fc.showSaveDialog(FileChooser.this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -783,7 +782,7 @@ public class GUI extends JFrame implements UI {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -795,7 +794,7 @@ public class GUI extends JFrame implements UI {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
@@ -812,17 +811,17 @@ public class GUI extends JFrame implements UI {
                         onExit();
                     }
                 });
-                
+
                 frame.setLocationByPlatform(true);
-                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 frame.pack();
                 frame.setMinimumSize(frame.getSize());
+                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 frame.setVisible(true);
             }
         }
         );
     }
-    
+
     public static void onExit() {
         if (game != null && playGameThread != null) {
             game.setStopped(true);

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model.ai;
+package io.github.t3r1jj.checkersai.model.ai;
 
-import checkers.model.Board;
-import checkers.model.Move;
-import checkers.model.Turn;
+import io.github.t3r1jj.checkersai.model.Board;
+import io.github.t3r1jj.checkersai.model.Move;
+import io.github.t3r1jj.checkersai.model.Turn;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;

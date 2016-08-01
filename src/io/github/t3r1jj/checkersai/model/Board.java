@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model;
+package io.github.t3r1jj.checkersai.model;
 
-import checkers.model.ai.Computer;
-import checkers.model.ai.EvaluatorConfig;
-import checkers.model.checker.Checker;
-import checkers.model.checker.NoChecker;
-import checkers.model.checker.RedPawn;
-import checkers.model.checker.WhitePawn;
-import checkers.model.checker.EmptySpace;
+import io.github.t3r1jj.checkersai.model.ai.Computer;
+import io.github.t3r1jj.checkersai.model.ai.EvaluatorConfig;
+import io.github.t3r1jj.checkersai.model.checker.Checker;
+import io.github.t3r1jj.checkersai.model.checker.EmptySpace;
+import io.github.t3r1jj.checkersai.model.checker.NoChecker;
+import io.github.t3r1jj.checkersai.model.checker.RedPawn;
+import io.github.t3r1jj.checkersai.model.checker.WhitePawn;
 import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
@@ -235,10 +235,10 @@ public class Board {
     public String toString(int i) {
         return (char) 27 + "[1;37;43m" + i + " " + (char) 27 + "[0;39;49m";
     }
-    
+
     @Override
     public String toString() {
         return (char) 27 + "[1;37;43m  " + (char) 27 + "[0;39;49m";
     }
-    
+
 }

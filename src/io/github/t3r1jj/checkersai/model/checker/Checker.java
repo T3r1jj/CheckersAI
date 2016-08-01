@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model.checker;
+package io.github.t3r1jj.checkersai.model.checker;
 
-import checkers.model.Board;
-import checkers.model.Move;
-import checkers.model.Turn;
-import checkers.model.ai.EvaluatorConfig;
+import io.github.t3r1jj.checkersai.model.Board;
+import io.github.t3r1jj.checkersai.model.Move;
+import io.github.t3r1jj.checkersai.model.Turn;
+import io.github.t3r1jj.checkersai.model.ai.EvaluatorConfig;
 import java.awt.Point;
 import java.util.List;
 import javax.swing.ImageIcon;

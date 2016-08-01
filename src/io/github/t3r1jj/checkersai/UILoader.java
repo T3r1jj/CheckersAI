@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers;
+package io.github.t3r1jj.checkersai;
 
-import checkers.ui.GUI;
-import checkers.ui.TUI;
+import io.github.t3r1jj.checkersai.ui.GUI;
+import io.github.t3r1jj.checkersai.ui.TUI;
 
 public class UILoader {
 
     /**
      * @param args the command line arguments, -ui=tui enables text user
-     * interface, grading values will be loaded from Checkers.properties (or
+     * interface, grading values will be loaded from CheckersAI.properties (or
      * default ones if the file does not exist)
      */
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class UILoader {
             }
         }
         if (args.length != 0) {
-            System.out.println("Wrong arguments\nUse -ui=tui to enable text user interface, grading values will be loaded from Checkers.properties (or default ones if the file does not exist)");
+            System.out.println("Wrong arguments\nUse -ui=tui to enable text user interface, grading values will be loaded from CheckersAI.properties (or default ones if the file does not exist)");
         }
         GUI.main(args);
     }

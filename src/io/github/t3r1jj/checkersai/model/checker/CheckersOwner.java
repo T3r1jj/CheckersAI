@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model.checker;
+package io.github.t3r1jj.checkersai.model.checker;
 
 public enum CheckersOwner {
     HUMAN,

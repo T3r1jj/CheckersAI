@@ -13,9 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model;
-public enum Turn {
-    WHITE,
-    RED,
-    NONE
+package io.github.t3r1jj.checkersai.model.ai;
+
+import java.math.BigInteger;
+
+public class Statistics {
+
+    public static BigInteger TOTAL_NODES_EXPANDED_FOR_WHITE_AI;
+    public static BigInteger TOTAL_NODES_EXPANDED_FOR_RED_AI;
+    public static long MOVES_COUNT;
+
+    public static void cleanStatistics() {
+        TOTAL_NODES_EXPANDED_FOR_RED_AI = BigInteger.ZERO;
+        TOTAL_NODES_EXPANDED_FOR_WHITE_AI = BigInteger.ZERO;
+        MOVES_COUNT = 0;
+    }
+
 }

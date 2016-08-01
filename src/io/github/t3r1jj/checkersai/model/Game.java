@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package checkers.model;
+package io.github.t3r1jj.checkersai.model;
 
-import checkers.model.ai.EvaluatorConfig;
-import checkers.model.ai.Statistics;
-import checkers.model.ai.Computer;
-import checkers.model.checker.CheckersOwner;
-import checkers.ui.UI;
+import io.github.t3r1jj.checkersai.model.ai.EvaluatorConfig;
+import io.github.t3r1jj.checkersai.model.ai.Statistics;
+import io.github.t3r1jj.checkersai.model.ai.Computer;
+import io.github.t3r1jj.checkersai.model.checker.CheckersOwner;
+import io.github.t3r1jj.checkersai.ui.UI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -69,10 +69,10 @@ public class Game {
         this.ui = ui;
         this.config = new EvaluatorConfig();
         System.out.println("CheckersAI - English checkers, v1.0.0, author: Damian Terlecki © 2015");
-        try (FileInputStream fis = new FileInputStream("Checkers.properties")) {
+        try (FileInputStream fis = new FileInputStream("CheckersAI.properties")) {
             config.load(fis);
         } catch (FileNotFoundException ex) {
-            System.err.println("Checkers.properties not found. Loading default values...");
+            System.err.println("CheckersAI.properties not found. Loading default values...");
         } catch (IOException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,7 +130,7 @@ public class Game {
     }
 
     public void PlayGame() {
-        if (ui.isComplex()) { // ui
+        if (!ui.isComplex()) {
             while (!board.isFinished() && !stopped) {
                 boolean whiteIsBlocked = board.isBlocked(Turn.WHITE);
                 boolean redIsBlocked = board.isBlocked(Turn.RED);
@@ -150,21 +150,21 @@ public class Game {
 
                 whiteMove();
                 if (board.isFinished()) {
-                    ui.printEnd(null, Turn.WHITE);
                     ui.printCheckers(board);
+                    ui.printEnd(null, Turn.WHITE);
                     break;
                 }
                 ui.printCheckers(board);
 
                 redMove();
                 if (board.isFinished()) {
-                    ui.printEnd(null, Turn.RED);
                     ui.printCheckers(board);
+                    ui.printEnd(null, Turn.RED);
                     break;
                 }
                 ui.printCheckers(board);
             }
-        } else { //ui
+        } else {
             while (!board.isFinished() && !stopped) {
                 boolean whiteIsBlocked = board.isBlocked(Turn.WHITE);
                 boolean redIsBlocked = board.isBlocked(Turn.RED);
@@ -197,8 +197,8 @@ public class Game {
                     return;
                 }
                 if (board.isFinished()) {
-                    ui.printEnd(null, Turn.WHITE);
                     ui.printCheckers(board);
+                    ui.printEnd(null, Turn.WHITE);
                     break;
                 }
                 ui.printCheckers(board);
@@ -218,8 +218,8 @@ public class Game {
                     return;
                 }
                 if (board.isFinished()) {
-                    ui.printEnd(null, Turn.RED);
                     ui.printCheckers(board);
+                    ui.printEnd(null, Turn.RED);
                     break;
                 }
                 ui.printCheckers(board);
